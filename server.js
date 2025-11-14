@@ -12,11 +12,10 @@ dotenv.config();
 const app = express();
 connectDB();
 
-// ✅ FIXED CORS
 app.use(
   cors({
     origin: [
-      "https://your-frontend-name.vercel.app",  // <-- replace
+      "https://event-frontend-jade-beta.vercel.app/",  
       "http://localhost:5173"
     ],
     methods: "GET,POST,PUT,PATCH,DELETE",
