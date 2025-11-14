@@ -12,15 +12,26 @@ dotenv.config();
 const app = express();
 connectDB();
 
-app.use(cors());
+// ✅ FIXED CORS
+app.use(
+  cors({
+    origin: [
+      "https://your-frontend-name.vercel.app",  // <-- replace
+      "http://localhost:5173"
+    ],
+    methods: "GET,POST,PUT,PATCH,DELETE",
+    credentials: true
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 
 // Routes
-app.use('/api/auth',authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
-app.use('/api/conatcts',contactRoutes);
+app.use('/api/conatcts', contactRoutes);
 app.use("/api/eventsimg", eventImageRoutes);
 
 const PORT = process.env.PORT || 4500;
