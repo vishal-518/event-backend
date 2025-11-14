@@ -23,6 +23,21 @@ const createEvent = async (req, res) => {
   }
 };
 
+const updateEventStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const event = await Event.findByIdAndUpdate(req.params.id, { status }, { new: true,runValidators: true }).populate('userId');
+
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.status(200).json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getEvents = async (req, res) => {
   try {
     let events;
@@ -90,5 +105,6 @@ export {
   getEvents,
   getEventById,
   updateEvent,
-  deleteEvent
+  deleteEvent,
+  updateEventStatus
 };
