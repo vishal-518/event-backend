@@ -12,16 +12,13 @@ dotenv.config();
 const app = express();
 connectDB();
 
-app.use(
-  cors({
-    origin: [
-      "https://event-frontend-jade-beta.vercel.app/",  
-      "http://localhost:5173"
-    ],
-    methods: "GET,POST,PUT,PATCH,DELETE",
-    credentials: true
-  })
-);
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
