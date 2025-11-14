@@ -7,7 +7,7 @@ import { allowRoles, tokenverify } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.post("/add", tokenverify, allowRoles('admin'), upload.single("image"), eventImages);
-router.get("/", tokenverify, allowRoles('admin'), getEventImages);
+router.get("/", getEventImages);
 router.get("/:id", tokenverify, allowRoles('admin'), getEventImageById);
 router.delete("/:id", tokenverify, allowRoles('admin'), deleteEventImage);
 

@@ -12,10 +12,10 @@ import { allowRoles, tokenverify } from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.get('/',tokenverify,allowRoles('admin','user'), getEvents);
+router.get('/',tokenverify,allowRoles('admin'), getEvents);
 router.post('/create',tokenverify, createEvent);
 router.get('/:id', getEventById);
 router.put('/:id', updateEvent);
-router.delete('/:id', deleteEvent);
+router.delete('/:id',tokenverify,allowRoles('admin'), deleteEvent);
 
 export default router;
