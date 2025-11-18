@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import eventImageRoutes from "./routes/eventImageRoutes.js";
+import alluserRoutes from './routes/getalluserRoutes.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/conatcts', contactRoutes);
 app.use("/api/eventsimg", eventImageRoutes);
+app.use('/api/users', alluserRoutes);
 
 const PORT = process.env.PORT || 4500;
 

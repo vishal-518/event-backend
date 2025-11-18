@@ -2,27 +2,44 @@ import e from 'express';
 import Event from '../models/Event.js';
 
 const createEvent = async (req, res) => {
-  const { name, contact, category, destination, date, address, description } = req.body;
+  const { 
+    name, 
+    phone, 
+    email, 
+    eventType, 
+    date, 
+    guests, 
+    venue, 
+    services, 
+    message 
+  } = req.body;
 
   try {
     const newEvent = new Event({
       name,
-      contact,
-      category,
-      destination,
+      phone,
+      email,
+      eventType,
       date,
-      address,
-      description,
-      userId: req.user.id
+      guests,
+      venue,
+      services,
+      message,
+      userId: req.user.id 
     });
 
     const savedEvent = await newEvent.save();
-    res.status(201).json(savedEvent);
+    res.status(201).json({
+      message: "Event booking successful!",
+      event: savedEvent
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ 
+      message: 'Error creating event booking.',
+      error: error.message 
+    });
   }
 };
-
 const updateEventStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -42,9 +59,9 @@ const getEvents = async (req, res) => {
   try {
     let events;
     if (req.user.role === 'admin') {
-      events = await Event.find().populate('userId');
+      events = await Event.find()
     } else {
-      events = await Event.find({ userId: req.user.id }).populate('userId');
+      events = await Event.find({ userId: req.user.id })
     }
 
     res.status(200).json(events);
@@ -52,8 +69,6 @@ const getEvents = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 const getEventById = async (req, res) => {
   try {
